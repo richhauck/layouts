@@ -1,0 +1,95 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+body {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background: #ccc;
+}
+main {
+  height: 100%;
+}
+#main-nav{
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+}
+#main-nav ul{
+  margin: 0;
+  padding: 0;
+}
+#main-nav li{
+  display: inline-block;
+}
+#main-nav .row{
+  display: flex;
+  justify-content: space-between;
+}
+#main-nav a{
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  padding: 20px;
+}
+.row{
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tile-container {
+  position: absolute;
+  top: 275px;
+  right: 0;
+  left: 0;
+  text-align: center;
+  user-select: none;
+}
+
+.tile {
+  width: 200px;
+  height: 200px;
+  margin: 4px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.page-container {
+  visibility: hidden;
+}
+.page {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: fixed;
+  overflow: hidden;
+}
+.page-1 {
+  background: #ff0000;
+}
+.page-2 {
+  background: #fff;
+}
+.page-3 {
+  background: #333;
+}
+
+.page-4 {
+  background: blue;
+}
+
+.page-content{
+  padding: 1em;
+  margin-top: 3em;
+  font-size: 1.5em;
+  line-height: 2;
+  height: 100%;
+  overflow-y: scroll;
+}

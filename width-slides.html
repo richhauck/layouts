@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Width Slides</title>
+    <link rel="stylesheet" href="base.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><button id="b0">Home</button></li>
+            <li><button id="b1">One</button></li>
+            <li><button id="b2">Two</button></li>
+            <li><button id="b3">Three</button></li>
+            <li><button id="b4">Four</button></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div id="container">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <style>
+        #container div{overflow: hidden;}
+        /* b1 */
+        main.b1 #container div:nth-child(1){width: 100%;}
+        main.b1 #container div:not(:nth-child(1)){width: 0;}
+
+        /* b2 */
+        main.b2 #container div:nth-child(2){width: 100%;}
+        main.b2 #container div:not(:nth-child(2)){width: 0;}
+
+        /* b3 */
+        main.b3 #container div:nth-child(3){width: 100%;}
+        main.b3 #container div:not(:nth-child(3)){width: 0;}
+
+        /* b4 */
+        main.b4 #container div:nth-child(4){width: 100%;}
+        main.b4 #container div:not(:nth-child(4)){width: 0;}
+    </style>
+</body>
+</html>

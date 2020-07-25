@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: gray;
+        }
+        .grid{
+            background-color: #333;
+        }
+        .grid-item {float: left; width: 200px;}
+        .grid-item grid-item--width2 { width: 400px; }
+
+        .grid-item > img,
+        .grid-item grid-item--width2 > img{
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+  <p>Example using masonry library and isotope filters</p>
+    <div class="button-group filter-button-group">
+        <button id="btn-all" data-filter="*">show all</button>
+        <button id="btn-gold" data-filter=".gold">gold</button>
+        <button id="btn-silver" data-filter=".silver">silver</button>
+      </div>
+      
+
+    <div class="grid">
+
+        <div class="grid-item grid-item--width2 silver">
+            <img src="../images/02.jpg" alt="">
+          </div>
+          <div class="grid-item silver">
+            <img src="../images/03.jpg" alt="">
+          </div>
+          <div class="grid-item gold">
+            <img src="../images/04.jpg" alt="">
+          </div>
+          <div class="grid-item silver">
+            <img src="../images/05.jpg" alt="">
+          </div>
+          <div class="grid-item gold">
+            <img src="../images/06.jpg" alt="">
+          </div>
+          <div class="grid-item grid-item--width2">
+            <img src="../images/07.jpg" alt="">
+          </div>
+          <div class="grid-item">
+            <img src="../images/08.jpg" alt="">
+          </div>
+          <div class="grid-item grid-item--width2">
+            <img src="../images/09.jpg" alt="">
+          </div>
+          <div class="grid-item">
+            <img src="../images/10.jpg" alt="">
+          </div>
+          <div class="grid-item">
+            <img src="../images/11.jpg" alt="">
+          </div>
+          <div class="grid-item">
+            <img src="../images/12.jpg" alt="">
+          </div>
+
+    </div>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+
+    <script>
+        const msnry = new Masonry( '.grid', {
+        // options
+        itemSelector: ['.grid-item', '.grid-item grid-item--width2'],
+        columnWidth: 200
+        });
+
+        const iso = new Isotope( '.grid', {
+        // options
+        //filter: '.gold'
+        });
+
+        // bind filter button click
+        var filtersElem = document.querySelector('.filter-button-group');
+        filtersElem.addEventListener( 'click', function( event ) {
+        // only work with buttons
+        if ( !matchesSelector( event.target, 'button' ) ) {
+            return;
+        }
+        var filterValue = event.target.getAttribute('data-filter');
+        iso.arrange({ filter: filterValue });
+        });
+
+        /*
+        msnry.imagesLoaded().progress( function() {
+            msnry.masonry('layout');
+        });
+*/
+    </script>
+
+</body>
+</html>
