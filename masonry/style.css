@@ -34,11 +34,11 @@ img{
     position: absolute;
     width: calc(100% - 2em);
     height: calc(100vh - 2em);
-    z-index: 100;
     display: flex;
     justify-content: space-between;
     opacity: 0;
     pointer-events: none;
+    z-index: 100;
 }
 #detail-pic{
     /*
@@ -59,10 +59,16 @@ img{
     max-width: 250px;
     padding-left: var(--base-padding);
     padding-right: var(--base-padding);
+    position: relative;
 
 }
 #detail-desc h1{
     margin-top: 0;
+}
+#close-btn{
+    position: absolute;
+    right: 0;
+    cursor: pointer;
 }
 .masonry{
     transition: all 0.5s ease-out;

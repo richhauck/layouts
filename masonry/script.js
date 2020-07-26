@@ -1,15 +1,38 @@
 let clone;
+const detail = document.querySelector('#detail')
 const detailPic = document.querySelector('#detail-pic')
 
 const onReverseCB = () => {
     console.log('reverse cb')
+
+    // remove clone
     detailPic.removeChild(clone);
+    detail.style.zIndex = '0';
+    detail.style.pointerEvents = 'none';
+
+    tl.pause(0);
+    tl.clear();
+}
+const onComplete = () => {
+    console.log('animation complete');
+    //detailPic.removeChild(clone);
 }
 
-const tl = gsap.timeline({paused: true, onReverseComplete:onReverseCB, defaults: {duration: 0.5}});
+// Initialize timeline
+const tl = gsap.timeline({paused: true, ease: "sine.out", onReverseComplete:onReverseCB, onComplete: onComplete, defaults: {duration: 0.5}});
 
-const playTL = (targ) => {
-    const targImg = document.querySelector(targ + ' img');
+/**
+ * playTL - plays transition from home to slide
+ * @param {int} id - index of link node
+ * @param {string} imgPath - URL to larger image
+ */
+const playTL = (id, imgPath) => {
+
+    detail.style.zIndex = '100'; 
+    detail.style.pointerEvents = 'all';
+
+    // TODO - recalculate if browser resizes
+    const targImg = document.querySelector('.masonry a:nth-child('+id+')' + ' img');
     const mBounds = document.querySelector('.masonry').getBoundingClientRect();
     const bounds = targImg.getBoundingClientRect();
     const boundsTop = bounds.top - mBounds.top;
@@ -22,41 +45,59 @@ const playTL = (targ) => {
     //detailPic.appendChild(clone);
 
     // Load larger image 
+    /*
     if (tl.reversed()) {
         console.log('reversed');
     }else{
         console.log('forwards');
     }
+    */
+
+    // Load larger image and append to detail screen
     clone = document.createElement('img'); 
-    clone.src = '../images/02.jpg'; 
-    detailPic.appendChild(clone); 
+    clone.src = imgPath;
+    detailPic.appendChild(clone);
+    
+    /*
     clone.onload = () => {
         console.log('loaded!')
     }
- 
+    */
+
     gsap.set(detailPic, {left: boundsLeft, top: boundsTop, width: boundsW, height: boundsH})
-    //gsap.set(clone, {left: boundsLeft, top: boundsTop, width: boundsW, height: boundsH, display: 'block', position: 'absolute'})
 
-    tl.to('.masonry a:not('+targ+')', {scale: 0})
-    //tl.to('.masonry a', {scale: 0})
+    tl.to('.masonry a:not(:nth-child('+id+'))', {scale: 0})
+
     .to(detail, {opacity: 1})
+    .to('.masonry a', {scale: 0})
     //.to('#detail-desc', {opacity: 1})
+    .to('.masonry a:nth-child('+id+')', {scale: 0})
     .to('#content', {backgroundColor: '#333'}, 0)
-    .to(detailPic, {width: '100%', height: '100%', left: 0, top: 0, duration: 0.4, onComplete: onComplete})
-
-    function onComplete(){
-        // load larger image
-
-
-        // remove clone
-        //detailPic.removeChild(clone);
-    }
+    .to(detailPic, {width: '100%', height: '100%', left: 0, top: 0, duration: 0.4}, '-=0.5')
 }
+
+// Assign behaviors
 document.querySelector('#home').addEventListener('click', () => {
     tl.reverse();
 })
-
-document.querySelector('#link1').addEventListener('click', (event) => {
-    playTL('.link1')
-    tl.play();
+document.querySelector('#close-btn').addEventListener('click', () => {
+    tl.reverse();
 })
+// Assign behaviors to thumbnails
+const thumblinks = document.querySelectorAll('.masonry > a');
+
+[].forEach.call(thumblinks, (link, path) => {
+
+    link.addEventListener('click', (event) => {
+        // retrieve index of thumbnail link and increment to match
+        let id = [].slice.call(event.target.parentNode.parentNode.children).indexOf(event.target.parentNode);
+        id++;
+        let mySrc = event.target.src;
+        let imgPath = mySrc.replace('thumbs/', '');
+
+        playTL(id, imgPath);
+        tl.play();
+    })
+
+
+});
